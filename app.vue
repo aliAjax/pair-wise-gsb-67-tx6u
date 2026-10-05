@@ -16,6 +16,7 @@ onMounted(() => store.hydrate())
       <nav>
         <NuxtLink to="/"><span>验收总览</span><small>{{ store.stats.total }}项</small></NuxtLink>
         <NuxtLink to="/equipment"><span>设备与测试</span><small>设备树</small></NuxtLink>
+        <NuxtLink to="/tree"><span>设备树变更</span><small>V{{ store.treeVersion }}<template v-if="store.conflictDrafts.length"> · {{ store.conflictDrafts.length }}冲突</template></small></NuxtLink>
         <NuxtLink to="/defects"><span>缺陷闭环</span><small>{{ store.stats.openDefects }}项</small></NuxtLink>
         <NuxtLink to="/audit"><span>签署与审计</span><small>V{{ store.plant.version }}</small></NuxtLink>
       </nav>

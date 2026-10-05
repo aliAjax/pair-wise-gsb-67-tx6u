@@ -10,14 +10,27 @@ import Select from 'primevue/select'
 import Tag from 'primevue/tag'
 import Textarea from 'primevue/textarea'
 import { useAcceptanceStore } from '../../stores/acceptance'
-import type { AcceptanceItem } from '../../types/domain'
+import type { AcceptanceItem, EquipmentNode } from '../../types/domain'
 
 const route = useRoute()
 const store = useAcceptanceStore()
 const node = computed(() => store.equipment.find((item) => item.id === route.params.id))
+const ancestors = computed(() => {
+  const chain: EquipmentNode[] = []
+  let current = node.value?.parentId
+  let guard = 0
+  while (current && guard < 20) {
+    const parent = store.equipment.find((item) => item.id === current)
+    if (!parent) break
+    chain.unshift(parent)
+    current = parent.parentId
+    guard += 1
+  }
+  return chain
+})
 const visible = ref(false)
 const editable = reactive<Partial<AcceptanceItem>>({})
-function openItem(item: AcceptanceItem) { Object.assign(editable, structuredClone(item)); visible.value = true }
+function openItem(item: AcceptanceItem) { Object.assign(editable, JSON.parse(JSON.stringify(item))); visible.value = true }
 function save() {
   if (!node.value || !editable.id) return
   store.updateItem(node.value.id, editable.id, editable)
@@ -28,7 +41,7 @@ function save() {
 <template>
   <section v-if="node" class="page">
     <div class="section-head"><div><span>{{ node.id }} · {{ node.code }}</span><h2>{{ node.name }}</h2><p>{{ node.type }} · 当前状态 {{ node.status }}</p></div><Tag :value="node.status" :severity="node.status === '已验收' ? 'success' : 'warn'" /></div>
-    <div class="equipment-path"><span v-for="item in store.equipment.filter((value) => value.parentId === node.parentId || value.id === node.id)" :key="item.id" :class="{ active: item.id === node.id }" @click="navigateTo(`/equipment/${item.id}`)">{{ item.name }}</span></div>
+    <div class="equipment-path"><span v-for="item in ancestors" :key="item.id" @click="navigateTo(`/equipment/${item.id}`)">{{ item.name }} /</span><span class="active">{{ node.name }}</span><Button label="调整设备树" text size="small" @click="navigateTo('/tree')" /></div>
     <DataTable :value="node.items" dataKey="id" size="small">
       <Column field="id" header="编号" style="width:100px" />
       <Column field="standard" header="验收标准" />

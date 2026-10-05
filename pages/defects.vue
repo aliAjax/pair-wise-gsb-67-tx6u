@@ -46,7 +46,7 @@ function decide(status: '已关闭' | '带条件通过' | '整改中') {
     <DataTable :value="rows" dataKey="id" size="small" selectionMode="single" @rowSelect="(event: any) => open(event.data)">
       <Column field="id" header="编号" />
       <Column field="title" header="缺陷" />
-      <Column field="equipmentId" header="设备" />
+      <Column header="设备（按新树追查）"><template #body="{ data }"><strong>{{ data.equipmentId }}</strong><small class="trace-path">{{ store.pathOf(data.equipmentId).join(' / ') }}</small></template></Column>
       <Column field="severity" header="严重度"><template #body="{ data }"><Tag :value="data.severity" :severity="data.severity === '重大' ? 'danger' : 'warn'" /></template></Column>
       <Column field="owner" header="责任方" />
       <Column field="dueDate" header="截止" />
@@ -54,7 +54,7 @@ function decide(status: '已关闭' | '带条件通过' | '整改中') {
       <Column header="版本"><template #body="{ data }">V{{ data.version }}</template></Column>
     </DataTable>
     <div v-if="selected" class="detail-panel">
-      <div class="detail-title"><div><span>{{ selected.id }} · {{ selected.equipmentId }}</span><h3>{{ selected.title }}</h3></div><div><Button label="多方回复" outlined @click="replyVisible = true" /><Button label="联合复验" @click="retestVisible = true" /></div></div>
+      <div class="detail-title"><div><span>{{ selected.id }} · {{ selected.equipmentId }}</span><h3>{{ selected.title }}</h3><small class="trace-path">按当前设备树追查：{{ store.pathOf(selected.equipmentId).join(' / ') }}</small></div><div><Button label="多方回复" outlined @click="replyVisible = true" /><Button label="联合复验" @click="retestVisible = true" /></div></div>
       <div class="reply-list"><article v-for="item in selected.replies" :key="item.repliedAt"><Tag :value="item.party" /><strong>{{ item.owner }}</strong><p>{{ item.content }}</p><span>{{ item.evidence }} · {{ item.repliedAt.replace('T', ' ').slice(0, 16) }}</span></article></div>
       <div class="decision-band"><Textarea v-model="retest.note" rows="2" placeholder="验收决定说明，带条件接受时必须填写限制条件" /><Button label="通过并关闭" @click="decide('已关闭')" /><Button label="带条件接受" severity="secondary" outlined @click="decide('带条件通过')" /><Button label="退回整改" severity="danger" outlined @click="decide('整改中')" /></div>
     </div>

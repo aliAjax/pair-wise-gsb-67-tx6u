@@ -1,7 +1,7 @@
 import type { AcceptanceDefect, AuditEntry, EquipmentNode, Plant } from '../types/domain'
 
 export const seedPlant: Plant = {
-  id: 'PV-2609-NW', name: '西北沙岭一期 120MW光伏电站', gridPoint: '沙岭110kV升压站', capacity: '120 MWp', commissioningDate: '2026-10-08', status: '验收中', version: 7
+  id: 'PV-2609-NW', name: '西北沙岭一期 120MW光伏电站', gridPoint: '沙岭110kV升压站', capacity: '120 MWp', commissioningDate: '2026-10-08', status: '验收中', version: 7, signedTreeVersion: null
 }
 
 export const seedEquipment: EquipmentNode[] = [
@@ -36,6 +36,15 @@ export const seedEquipment: EquipmentNode[] = [
   {
     id: 'EQ-CB111', parentId: 'EQ-INV11', name: '1-1-1汇流箱', type: '汇流箱', code: 'CB-1-1-1', status: '待验收',
     items: [{ id: 'IT-C1', standard: '组串极性及开路电压正常', method: '逐路测量并核对设计', condition: '辐照度300-800W/m²', status: '待检查', measured: '', evidence: '', version: 1 }], certificates: []
+  },
+  {
+    id: 'EQ-AR2', parentId: 'EQ-TR1', name: '2号方阵', type: '方阵', code: 'ARRAY-02', status: '验收中',
+    items: [{ id: 'IT-A2', standard: '方阵绝缘电阻不低于1MΩ', method: '兆欧表整方阵测量', condition: '逆变器直流侧断开', status: '合格', measured: '1.6MΩ', evidence: '方阵绝缘记录.pdf', version: 1 }],
+    certificates: [{ id: 'C-A2', name: '方阵组串EL检测报告', issuer: '省电科院', expiresAt: '2027-03-15', version: 1, verified: true }]
+  },
+  {
+    id: 'EQ-INV21', parentId: 'EQ-AR2', name: '2-1号逆变器', type: '逆变器', code: 'INV-2-1', status: '待验收',
+    items: [{ id: 'IT-I3', standard: '并离网切换逻辑正确', method: '模拟电网失电验证', condition: '场站带电', status: '待检查', measured: '', evidence: '', version: 1 }], certificates: []
   }
 ]
 

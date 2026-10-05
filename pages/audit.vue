@@ -17,7 +17,7 @@ const sign = () => {
   toast.add({ severity: result.ok ? 'success' : 'error', summary: result.ok ? '签署完成' : '完整性校验未通过', detail: result.message, life: 4000 })
 }
 const exportPackage = () => {
-  const payload = { plant: store.plant, equipment: store.equipment, defects: store.defects, audit: store.audit, preflight: store.preflight }
+  const payload = { plant: store.plant, treeVersion: store.treeVersion, signedTreeVersion: store.plant.signedTreeVersion, packageInvalidated: store.packageInvalidated, equipment: store.equipment, defects: store.defects, audit: store.audit, preflight: store.preflight }
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' })
   const url = URL.createObjectURL(blob); const anchor = document.createElement('a'); anchor.href = url; anchor.download = '光伏并网验收交付包.json'; anchor.click(); URL.revokeObjectURL(url)
 }
@@ -29,7 +29,7 @@ const exportPackage = () => {
       <div><span>并网前完整性校验</span><strong>{{ store.preflight.allowed ? '全部条件满足' : `${store.preflight.blocking.length}项阻断` }}</strong><p v-for="item in store.preflight.blocking" :key="item">{{ item }}</p></div>
       <div><Button label="导出交付包" outlined @click="exportPackage" /><Button label="签署并锁定版本" @click="sign" /></div>
     </div>
-    <div class="section-head"><div><h2>验收审计</h2><p>当前交付版本 V{{ store.plant.version }} · {{ store.plant.status }}</p></div><InputText v-model="keyword" placeholder="搜索实体、动作或操作人" /></div>
+    <div class="section-head"><div><h2>验收审计</h2><p>当前交付版本 V{{ store.plant.version }} · {{ store.plant.status }} · 设备树 V{{ store.treeVersion }}<template v-if="store.plant.signedTreeVersion !== null"> · 签署树基线 V{{ store.plant.signedTreeVersion }}</template></p></div><InputText v-model="keyword" placeholder="搜索实体、动作或操作人" /></div>
     <DataTable :value="rows" dataKey="id" size="small">
       <Column field="createdAt" header="时间"><template #body="{ data }">{{ data.createdAt.replace('T', ' ').slice(0, 16) }}</template></Column>
       <Column field="entityId" header="实体" />

@@ -64,6 +64,39 @@ export interface Plant {
   commissioningDate: string
   status: '验收中' | '待复核' | '已签署'
   version: number
+  /** 最近一次签署时锁定的设备树版本；与当前 treeVersion 不一致表示交付包已失效 */
+  signedTreeVersion: number | null
+}
+
+/** 单步挂接：把 equipmentId 连同其子树整体挂到 targetParentId 下，验收项与证书随节点归属 */
+export interface TreeMove {
+  equipmentId: string
+  targetParentId: string | null
+  fromParentId: string | null
+}
+
+export type TreeChangeStatus = '草稿' | '已应用' | '冲突草稿'
+
+/** 可合并的设备树变更：一次窗口提交的整套挂接（可含多步），原子提交 */
+export interface TreeChange {
+  id: string
+  label: string
+  operator: string
+  reason: string
+  windowId: string
+  baseTreeVersion: number
+  status: TreeChangeStatus
+  moves: TreeMove[]
+  /** 本次变更触碰的节点（被迁移子树的全部节点）与目标父位 */
+  touchedNodeIds: string[]
+  occupiedParentIds: Array<string | null>
+  appliedTreeVersion: number | null
+  conflictWith: string | null
+  conflictReason: string
+  createdAt: string
+  appliedAt: string | null
+  /** 冲突时保留的提交前整树快照，用于核对与恢复，不写回活树 */
+  treeSnapshotAtSubmit: EquipmentNode[] | null
 }
 
 export interface AuditEntry {
