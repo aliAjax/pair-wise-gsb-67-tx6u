@@ -7,7 +7,9 @@
     "dev": "nuxt dev --port 18467",
     "build": "nuxt build",
     "preview": "nuxt preview --port 18467",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "typecheck": "vue-tsc --noEmit",
+    "test:tree": "tsx scripts/tree-logic.test.ts && tsx scripts/tree-store.test.ts"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.9.0",
@@ -22,6 +24,8 @@
     "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@types/node": "^26.6.4",
+    "tsx": "^4.23.15",
     "typescript": "^5.6.3",
     "vue-tsc": "^2.1.10"
   }

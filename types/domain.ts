@@ -64,6 +64,31 @@ export interface Plant {
   commissioningDate: string
   status: '验收中' | '待复核' | '已签署'
   version: number
+  // 签署时锁定的设备树版本；与当前树版本不一致即表示交付包已随设备树调整失效
+  signedTreeRevision: number | null
+}
+
+export interface TreeMove {
+  nodeId: string
+  nodeName: string
+  fromParentId: string | null
+  toParentId: string
+  reason: string
+}
+
+export type TreeChangeStatus = '待合并' | '已合并' | '冲突草稿'
+
+export interface TreeChangeSet {
+  id: string
+  windowName: string
+  baseRevision: number
+  finalRevision: number | null
+  status: TreeChangeStatus
+  moves: TreeMove[]
+  conflictReason: string
+  resolvedNote: string
+  createdAt: string
+  mergedAt: string | null
 }
 
 export interface AuditEntry {

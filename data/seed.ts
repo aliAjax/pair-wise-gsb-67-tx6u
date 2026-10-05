@@ -1,7 +1,7 @@
 import type { AcceptanceDefect, AuditEntry, EquipmentNode, Plant } from '../types/domain'
 
 export const seedPlant: Plant = {
-  id: 'PV-2609-NW', name: '西北沙岭一期 120MW光伏电站', gridPoint: '沙岭110kV升压站', capacity: '120 MWp', commissioningDate: '2026-10-08', status: '验收中', version: 7
+  id: 'PV-2609-NW', name: '西北沙岭一期 120MW光伏电站', gridPoint: '沙岭110kV升压站', capacity: '120 MWp', commissioningDate: '2026-10-08', status: '验收中', version: 7, signedTreeRevision: null
 }
 
 export const seedEquipment: EquipmentNode[] = [
@@ -24,6 +24,10 @@ export const seedEquipment: EquipmentNode[] = [
   {
     id: 'EQ-AR1', parentId: 'EQ-TR1', name: '1号方阵', type: '方阵', code: 'ARRAY-01', status: '待验收',
     items: [{ id: 'IT-A1', standard: '接地连续性符合设计', method: '微欧计抽测30处', condition: '汇流箱断电', status: '待检查', measured: '', evidence: '', version: 1 }], certificates: []
+  },
+  {
+    id: 'EQ-AR2', parentId: 'EQ-TR1', name: '2号方阵', type: '方阵', code: 'ARRAY-02', status: '待验收',
+    items: [{ id: 'IT-A2', standard: '方阵支架等电位连接符合设计', method: '微欧计抽测20处', condition: '支架安装完成且干燥', status: '待检查', measured: '', evidence: '', version: 1 }], certificates: []
   },
   {
     id: 'EQ-INV11', parentId: 'EQ-AR1', name: '1-1号逆变器', type: '逆变器', code: 'INV-1-1', status: '验收中',

@@ -16,3 +16,47 @@ a { text-decoration: none; }
 .edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }.edit-grid label { display: grid; gap: 6px; font-size: 12px; color: #65736f; }.detail-title { display: flex; justify-content: space-between; align-items: center; }.detail-title span { color: #74817e; font-size: 11px; }.detail-title h3 { margin: 5px 0 0; }
 .reply-list { display: grid; gap: 8px; margin: 15px 0; }.reply-list article { border-left: 3px solid #2c6757; background: #f5f8f7; padding: 11px; display: grid; grid-template-columns: 90px 120px 1fr 220px; align-items: center; gap: 8px; }.reply-list p { margin: 0; font-size: 12px; }.reply-list span { color: #74817e; font-size: 10px; }
 .decision-band { display: grid; grid-template-columns: 1fr auto auto auto; gap: 8px; align-items: center; border-top: 1px solid #dfe5e3; padding-top: 14px; }.preflight-panel { display: flex; justify-content: space-between; align-items: center; margin: 0 0 18px; border-left: 4px solid #d2a43c; }.preflight-panel span, .preflight-panel strong, .preflight-panel p { display: block; }.preflight-panel span { color: #758480; font-size: 11px; }.preflight-panel strong { margin: 5px 0; }.preflight-panel p { color: #9e3e38; font-size: 11px; margin: 3px 0; }
+.state-danger { color: #d9665f !important; }
+
+/* 设备树调整 */
+.equipment-layout { display: grid; grid-template-columns: 300px 1fr; gap: 18px; align-items: start; }
+.equipment-aside { position: sticky; top: 14px; }
+.tree-panel { background: white; border: 1px solid #dbe2e0; border-radius: 4px; padding: 12px; }
+.tree-panel-head { display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #e6ecea; margin-bottom: 8px; }
+.tree-panel-head strong { font-size: 13px; }.tree-panel-head small { display: block; color: #82918c; font-size: 10px; }
+.conflict-count { background: #9e3e38; color: white; border-radius: 8px; padding: 0 5px; font-size: 10px; margin-left: 4px; }
+.tree-rows { display: grid; gap: 2px; }
+.tree-row { display: flex; align-items: center; gap: 7px; padding: 5px 8px; border-radius: 3px; cursor: default; font-size: 12px; }
+.tree-row:hover { background: #f3f7f5; }.tree-row.active { background: #e4f0ec; }
+.tree-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }.tree-dot[data-type="并网点"] { background: #1b4338; }.tree-dot[data-type="变压器"] { background: #5b7a99; }.tree-dot[data-type="方阵"] { background: #d2a43c; }.tree-dot[data-type="逆变器"] { background: #6b9e8c; }.tree-dot[data-type="汇流箱"] { background: #9aa8a3; }
+.tree-name { color: #233832; cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }.tree-row small { margin-left: auto; color: #93a09c; font-size: 10px; white-space: nowrap; }
+.tree-hint { margin: 10px 0 0; padding-top: 9px; border-top: 1px dashed #dbe2e0; color: #8a9793; font-size: 10px; line-height: 1.6; }
+.equipment-main { min-width: 0; }
+.head-actions { display: flex; align-items: center; gap: 8px; }
+
+.invalid-banner { display: flex; align-items: center; gap: 10px; background: #fbeae9; border: 1px solid #e2b5b1; border-left: 4px solid #9e3e38; padding: 11px 14px; margin-bottom: 14px; font-size: 12px; color: #7c322d; cursor: pointer; }
+
+.composer { display: grid; gap: 10px; }
+.composer-note { margin: 0; font-size: 12px; color: #5e6d69; background: #f4f8f6; border-left: 3px solid #2c6757; padding: 9px 11px; line-height: 1.7; }
+.composer-meta { display: flex; align-items: center; gap: 18px; }
+.composer-meta label { display: flex; align-items: center; gap: 7px; font-size: 12px; color: #5e6d69; }
+.force-fail { color: #9e3e38 !important; }
+.draft-move { border: 1px solid #dbe2e0; border-radius: 4px; padding: 11px; display: grid; gap: 9px; background: #fbfcfc; }
+.draft-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: 9px; align-items: end; }
+.draft-grid label, .reason-line { display: grid; gap: 5px; font-size: 11px; color: #72807d; }
+.impact-line { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #4e6a61; }
+.validation-error { margin: 0; color: #9e3e38; font-size: 12px; }
+
+.conflict-empty { color: #82918c; font-size: 12px; }
+.conflict-card { border: 1px solid #e2b5b1; border-left: 4px solid #9e3e38; background: #fdf7f6; padding: 13px; margin-bottom: 12px; }
+.conflict-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }.conflict-head strong { margin: 0 8px; font-size: 13px; }.conflict-head small { color: #82918c; font-size: 10px; }
+.conflict-reason { margin: 9px 0; color: #7c322d; font-size: 12px; line-height: 1.6; }
+.conflict-moves { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 7px; }
+.conflict-moves li { display: flex; align-items: center; gap: 9px; font-size: 12px; flex-wrap: wrap; }.conflict-moves small { color: #82918c; width: 100%; padding-left: 2px; }
+.move-arrow { color: #43534e; }
+.conflict-actions { display: flex; gap: 8px; margin-top: 11px; }
+.conflict-resolved { margin: 8px 0 0; color: #2c6757; font-size: 11px; }
+
+.sign-actions { display: flex; gap: 8px; align-items: center; }
+.changes-table .change-moves { font-size: 11px; color: #52615c; }
+.missing-node { color: #9e3e38; }
